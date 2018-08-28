@@ -5,11 +5,13 @@
 /**
  * Listen for the document to load and initialize the application
  */
-$(document).ready();
+$(document).ready(initializeApp);
 
 /**
  * Define all global variables here.  
+ * 
  */
+student_array = [];
 /***********************
  * student_array - global array to hold student objects
  * @type {Array}
@@ -20,6 +22,7 @@ $(document).ready();
  * ];
  */
 
+
 /***************************************************************************************************
 * initializeApp 
 * @params {undefined} none
@@ -27,6 +30,7 @@ $(document).ready();
 * initializes the application, including adding click handlers and pulling in any data from the server, in later versions
 */
 function initializeApp(){
+      addClickHandlersToElements();
 }
 
 /***************************************************************************************************
@@ -36,15 +40,18 @@ function initializeApp(){
 *     
 */
 function addClickHandlersToElements(){
+      $('.btn-success').on('click', handleAddClicked);
+      $('.btn-default').on('click', handleCancelClick);
 }
 
 /***************************************************************************************************
  * handleAddClicked - Event Handler when user clicks the add button
  * @param {object} event  The event object from the click
- * @return: 
-       none
+ * @return: none
  */
-function handleAddClicked(){
+function handleAddClicked(event){
+      addStudent();
+
 }
 /***************************************************************************************************
  * handleCancelClicked - Event Handler when user clicks the cancel button, should clear out student form
@@ -60,12 +67,30 @@ function handleCancelClick(){
  * @return undefined
  * @calls clearAddStudentFormInputs, updateStudentList
  */
+
 function addStudent(){
+      var courseName = $('#course').val();
+      var studentName = $('#studentName').val();
+      var studentGrade = $('#studentGrade').val();
+
+      var studentObj = {};
+      studentObj.name = studentName;
+      studentObj.course = courseName;
+      studentObj.grade = studentGrade;
+      student_array.push(studentObj);
+      console.log('inside addStudent: ', student_array);
+      console.log('inside addStudent: ', studentGrade);
+
+      updateStudentList();
+      clearAddStudentFormInputs();
 }
 /***************************************************************************************************
  * clearAddStudentForm - clears out the form values based on inputIds variable
  */
 function clearAddStudentFormInputs(){
+      $('#course').val('');
+      $('#studentName').val('');
+      $('#studentGrade').val('');
 }
 /***************************************************************************************************
  * renderStudentOnDom - take in a student object, create html elements from the values and then append the elements
@@ -81,7 +106,7 @@ function renderStudentOnDom(){
  * @returns {undefined} none
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
-function updateStudentList(){
+function updateStudentList(students){
   
 }
 /***************************************************************************************************
