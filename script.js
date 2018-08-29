@@ -49,7 +49,7 @@ function addClickHandlersToElements(){
  * @param {object} event  The event object from the click
  * @return: none
  */
-function handleAddClicked(event){
+function handleAddClicked(){
       addStudent();
 
 }
@@ -60,6 +60,7 @@ function handleAddClicked(event){
  * @calls: clearAddStudentFormInputs
  */
 function handleCancelClick(){
+      clearAddStudentFormInputs();
 }
 /***************************************************************************************************
  * addStudent - creates a student objects based on input fields in the form and adds the object to global student array
@@ -78,10 +79,10 @@ function addStudent(){
       studentObj.course = courseName;
       studentObj.grade = studentGrade;
       student_array.push(studentObj);
-      console.log('inside addStudent: ', student_array);
-      console.log('inside addStudent: ', studentGrade);
+      // console.log('inside addStudent: ', student_array);
+      // console.log('inside addStudent: ', studentGrade);
 
-      updateStudentList();
+      renderStudentOnDom(studentObj);
       clearAddStudentFormInputs();
 }
 /***************************************************************************************************
@@ -97,8 +98,28 @@ function clearAddStudentFormInputs(){
  * into the .student_list tbody
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
-function renderStudentOnDom(){
+function renderStudentOnDom(studentObj){
+      // console.log('inside render1: ', studentObj);
+      //console.log('inside render2: ', studentObj.name);
+      // var studName = $('<tr>').studentObj.name;
+      // $('.student_list tbody').append(studName);
+      //var tR = $('<tr>');
+
+      var studentName = $('<td>').text(studentObj.name);
+      var studentCourse = $('<td>').text(studentObj.course);
+      var studentGrade = $('<td>').text(studentObj.grade);
+      var deleteBtn = $('<button>', {
+            type: 'button',
+            class: 'btn btn-danger',
+            text: 'Delete'
+      });
+
+      var tR = $('<tr>');
+      $(tR).append(studentName, studentCourse, studentGrade, deleteBtn);
+      $('tbody').append(tR);
+
 }
+
 
 /***************************************************************************************************
  * updateStudentList - centralized function to update the average and call student list update
@@ -106,15 +127,29 @@ function renderStudentOnDom(){
  * @returns {undefined} none
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
-function updateStudentList(students){
-  
+function updateStudentList(students) {
+      //console.log('inside updateList: ', students);
+      for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
+            renderStudentOnDom(students[studentArrIndex]);
+      }
+      // $('.btn btn-danger').on('click', function(){
+      //       $('tbody tr').remove();
+      // });
+      //$('.btn .btn-danger').on('click', calculateGradeAverage(students));
+      calculatorGradeAverage();
+      renderGradeAverage();
 }
 /***************************************************************************************************
  * calculateGradeAverage - loop through the global student array and calculate average grade and return that value
  * @param: {array} students  the array of student objects
  * @returns {number}
  */
-function calculateGradeAverage(){
+function calculateGradeAverage(students){
+      for (var i = 0; i < students.length; i++) {
+            var eachGrade = $('tbody tr td:nth-child(3)').text();
+            console.log(eachGrade);
+      }
+
 }
 /***************************************************************************************************
  * renderGradeAverage - updates the on-page grade average
