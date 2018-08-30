@@ -80,10 +80,6 @@ function addStudent(){
       studentObj.course = courseName;
       studentObj.grade = studentGrade;
       student_array.push(studentObj);
-      // console.log('inside addStudent: ', student_array);
-      // console.log('inside addStudent: ', studentGrade);
-
-      //renderStudentOnDom(studentObj);
       updateStudentList(student_array);
       clearAddStudentFormInputs();
 }
@@ -101,12 +97,6 @@ function clearAddStudentFormInputs(){
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
 function renderStudentOnDom(studentObj){
-      // console.log('inside render1: ', studentObj);
-      //console.log('inside render2: ', studentObj.name);
-      // var studName = $('<tr>').studentObj.name;
-      // $('.student_list tbody').append(studName);
-      //var tR = $('<tr>');
-
       var studentName = $('<td>').text(studentObj.name);
       var studentCourse = $('<td>').text(studentObj.course);
       var studentGrade = $('<td>').text(studentObj.grade);
@@ -117,22 +107,10 @@ function renderStudentOnDom(studentObj){
       });
       (function(){
             deleteBtn.click(function(){
-                  //debugger;
-
                   //removes object from student_array
-                  // student_array.indexOf(studentarrayindex)
-                  // studentarray.splice(studentarrayindex, 1)
-                  console.log('student array: ', student_array);
-                  console.log('student object: ', studentObj);
                   var studentI = student_array.indexOf(studentObj)
                   student_array.splice(studentI, 1);
-                  console.log('student array after spice: ', student_array);
-                  // if(studentObj === studentObj) {
-                  //       console.log('studentObj is true');
-                  // } else {
-                  //       console.log('studentObj is false');
-                  // }
-                  // console.log(this);
+                  
                   //removes from DOM
                   $((this.closest)('tr')).remove();
                   updateStudentList(student_array);
@@ -155,7 +133,6 @@ function renderStudentOnDom(studentObj){
 function updateStudentList(students) {
       //clear the entire table 
       $('tbody').empty();
-      //console.log('inside updateList: ', students);
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
 
             renderStudentOnDom(students[studentArrIndex]);
@@ -169,11 +146,8 @@ function updateStudentList(students) {
  * @returns {number}
  */
 function calculateGradeAverage(students){
-      //console.log(students);
-      //debugger;
       var result = 0;
       for (var i = 0; i < students.length; i++) {
-            //var eachGrade = $('tbody tr td:nth-child(3)').text();
             var eachGrade = parseInt(students[i].grade);
             result += eachGrade;
             
