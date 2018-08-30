@@ -135,6 +135,7 @@ function renderStudentOnDom(studentObj){
                   // console.log(this);
                   //removes from DOM
                   $((this.closest)('tr')).remove();
+                  updateStudentList(student_array);
             });
       })()
 
