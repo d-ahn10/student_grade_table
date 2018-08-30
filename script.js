@@ -75,6 +75,7 @@ function addStudent(){
       var studentGrade = $('#studentGrade').val();
 
       var studentObj = {};
+      studentObj.key = 
       studentObj.name = studentName;
       studentObj.course = courseName;
       studentObj.grade = studentGrade;
@@ -114,10 +115,32 @@ function renderStudentOnDom(studentObj){
             class: 'btn btn-danger',
             text: 'Delete'
       });
+      (function(){
+            deleteBtn.click(function(){
+                  //debugger;
+
+                  //removes object from student_array
+                  // student_array.indexOf(studentarrayindex)
+                  // studentarray.splice(studentarrayindex, 1)
+                  console.log('student array: ', student_array);
+                  console.log('student object: ', studentObj);
+                  var studentI = student_array.indexOf(studentObj)
+                  student_array.splice(studentI, 1);
+                  console.log('student array after spice: ', student_array);
+                  // if(studentObj === studentObj) {
+                  //       console.log('studentObj is true');
+                  // } else {
+                  //       console.log('studentObj is false');
+                  // }
+                  // console.log(this);
+                  //removes from DOM
+                  $((this.closest)('tr')).remove();
+            });
+      })()
 
       var tableRow = $('<tr>');
       $(tableRow).append(studentName, studentCourse, studentGrade, deleteBtn);
-      $('tbody').append(tR);
+      $('tbody').append(tableRow);
 
 }
 
@@ -133,6 +156,7 @@ function updateStudentList(students) {
       $('tbody').empty();
       //console.log('inside updateList: ', students);
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
+
             renderStudentOnDom(students[studentArrIndex]);
       }            
       var avgGrade = calculateGradeAverage(students);
