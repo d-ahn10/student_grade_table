@@ -115,8 +115,8 @@ function renderStudentOnDom(studentObj){
             text: 'Delete'
       });
 
-      var tR = $('<tr>');
-      $(tR).append(studentName, studentCourse, studentGrade, deleteBtn);
+      var tableRow = $('<tr>');
+      $(tableRow).append(studentName, studentCourse, studentGrade, deleteBtn);
       $('tbody').append(tR);
 
 }
