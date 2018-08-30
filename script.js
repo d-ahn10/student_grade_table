@@ -82,7 +82,8 @@ function addStudent(){
       // console.log('inside addStudent: ', student_array);
       // console.log('inside addStudent: ', studentGrade);
 
-      renderStudentOnDom(studentObj);
+      //renderStudentOnDom(studentObj);
+      updateStudentList(student_array);
       clearAddStudentFormInputs();
 }
 /***************************************************************************************************
@@ -128,16 +129,14 @@ function renderStudentOnDom(studentObj){
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(students) {
+      //clear the entire table 
+      $('tbody').empty();
       //console.log('inside updateList: ', students);
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
             renderStudentOnDom(students[studentArrIndex]);
-      }
-      // $('.btn btn-danger').on('click', function(){
-      //       $('tbody tr').remove();
-      // });
-      //$('.btn .btn-danger').on('click', calculateGradeAverage(students));
-      calculatorGradeAverage();
-      renderGradeAverage();
+      }            
+      var avgGrade = calculateGradeAverage(students);
+      renderGradeAverage(avgGrade);
 }
 /***************************************************************************************************
  * calculateGradeAverage - loop through the global student array and calculate average grade and return that value
@@ -145,10 +144,17 @@ function updateStudentList(students) {
  * @returns {number}
  */
 function calculateGradeAverage(students){
+      //console.log(students);
+      //debugger;
+      var result = 0;
       for (var i = 0; i < students.length; i++) {
-            var eachGrade = $('tbody tr td:nth-child(3)').text();
-            console.log(eachGrade);
+            //var eachGrade = $('tbody tr td:nth-child(3)').text();
+            var eachGrade = parseInt(students[i].grade);
+            result += eachGrade;
+            
       }
+      var gradeAvg = Math.round(result / students.length);
+      return gradeAvg;
 
 }
 /***************************************************************************************************
@@ -156,7 +162,8 @@ function calculateGradeAverage(students){
  * @param: {number} average    the grade average
  * @returns {undefined} none
  */
-function renderGradeAverage(){
+function renderGradeAverage(averageGrade){
+      $('.avgGrade').text(averageGrade);
 }
 
 
