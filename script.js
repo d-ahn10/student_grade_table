@@ -6,7 +6,6 @@
  * Listen for the document to load and initialize the application
  */
 $(document).ready(initializeApp);
-
 /**
  * Define all global variables here.  
  * 
