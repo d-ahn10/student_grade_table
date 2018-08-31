@@ -42,6 +42,7 @@ function initializeApp(){
 function addClickHandlersToElements(){
       $('.btn-success').on('click', handleAddClicked);
       $('.btn-default').on('click', handleCancelClick);
+      $('.btn-info').click(requestData);
 }
 
 /***************************************************************************************************
@@ -97,6 +98,7 @@ function clearAddStudentFormInputs(){
  * @param {object} studentObj a single student object with course, name, and grade inside
  */
 function renderStudentOnDom(studentObj){
+      //debugger;
       var studentName = $('<td>').text(studentObj.name);
       var studentCourse = $('<td>').text(studentObj.course);
       var studentGrade = $('<td>').text(studentObj.grade);
@@ -131,6 +133,7 @@ function renderStudentOnDom(studentObj){
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(students) {
+      //debugger;
       //clear the entire table 
       $('tbody').empty();
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
@@ -164,8 +167,23 @@ function calculateGradeAverage(students){
 function renderGradeAverage(averageGrade){
       $('.avgGrade').text(averageGrade);
 }
+/***************************************************************************************************
+* requestData - requests student_array data from lfz database*/
+function requestData() {
 
-
-
-
-
+      var ajaxConfig = {
+            data: {
+                  api_key: '34Ry8P0JAo'
+            },
+            dataType: 'json',
+            method: 'POST',
+            url: 'http://s-apis.learningfuze.com/sgt/get',
+            success: function(result) {
+                  students = result.data;
+                  console.log(students);
+                        updateStudentList(students);
+                  
+            }
+      }
+      $.ajax(ajaxConfig);
+}
