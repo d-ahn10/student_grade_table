@@ -172,11 +172,11 @@ function requestData() {
 
       var ajaxConfig = {
             data: {
-                  api_key: '34Ry8P0JAo'
+                  action: 'readAll'
             },
             dataType: 'json',
-            method: 'POST',
-            url: 'http://s-apis.learningfuze.com/sgt/get',
+            method: 'GET',
+            url: 'http://localhost:8000/data.php',
             success: function(result) {
                   students = result.data;
                   console.log(students);
