@@ -70,18 +70,20 @@ function handleCancelClick(){
  */
 
 function addStudent(){
+
       var courseName = $('#course').val();
       var studentName = $('#studentName').val();
       var studentGrade = $('#studentGrade').val();
 
       var studentObj = {};
-      studentObj.key = 
       studentObj.name = studentName;
       studentObj.course = courseName;
       studentObj.grade = studentGrade;
       student_array.push(studentObj);
-      updateStudentList(student_array);
-      clearAddStudentFormInputs();
+      console.log(studentObj);
+      sendData(studentObj);
+      // updateStudentList(student_array);
+      // clearAddStudentFormInputs();
 }
 /***************************************************************************************************
  * clearAddStudentForm - clears out the form values based on inputIds variable
@@ -167,7 +169,7 @@ function renderGradeAverage(averageGrade){
       $('.avgGrade').text(averageGrade);
 }
 /***************************************************************************************************
-* requestData - requests student_array data from lfz database*/
+* requestData - requests student_array data from sgt database*/
 function requestData() {
 
       var ajaxConfig = {
@@ -175,13 +177,36 @@ function requestData() {
                   action: 'readAll'
             },
             dataType: 'json',
-            method: 'GET',
+            method: 'POST',
             url: 'http://localhost:8000/data.php',
             success: function(result) {
                   students = result.data;
-                  console.log(students);
+                  console.log('request Data:', students);
                         updateStudentList(students);
                   
+            }
+      }
+      $.ajax(ajaxConfig);
+}
+/***************************************************************************************************
+* sendData - sends input info data to sgt database*/
+function sendData(sendingData) {
+
+      var ajaxConfig = {
+            data: {
+                  action: 'insert',
+                  key: sendingData.key,
+                  name: sendingData.name,
+                  course: sendingData.course,
+                  grade: sendingData.grade
+            },
+            dataType: 'json',
+            method: 'POST',
+            url: 'http://localhost:8000/data.php',
+            success: function(result) {
+                  students = result.data;
+                  console.log('sendData: ', students);
+                        updateStudentList(students);
             }
       }
       $.ajax(ajaxConfig);
