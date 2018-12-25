@@ -101,7 +101,7 @@ function clearAddStudentFormInputs(){
 function renderStudentOnDom(studentObj){
       //debugger;
       var studentName = $('<td>').text(studentObj.name);
-      var studentCourse = $('<td>').text(studentObj.course);
+      var studentCourse = $('<td>').text(studentObj.course_name);
       var studentGrade = $('<td>').text(studentObj.grade);
       var deleteBtn = $('<button>', {
             type: 'button',
@@ -135,7 +135,7 @@ function renderStudentOnDom(studentObj){
  */
 function updateStudentList(students) {
       //debugger;
-      //clear the entire table 
+      //clear the entire table
       $('tbody').empty();
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
 
