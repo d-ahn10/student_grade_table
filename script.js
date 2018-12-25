@@ -76,11 +76,13 @@ function addStudent(){
       var studentGrade = $('#studentGrade').val();
 
       var studentObj = {};
+      // studentObj.id = null;
       studentObj.name = studentName;
-      studentObj.course = courseName;
+      studentObj.course_name = courseName;
       studentObj.grade = studentGrade;
       student_array.push(studentObj);
-      console.log(studentObj);
+      console.log('addStudent function, Line 84: ', studentObj);
+      console.log('addStudent function, Line 85: ', student_array);
       sendData(studentObj);
       // updateStudentList(student_array);
       // clearAddStudentFormInputs();
@@ -197,7 +199,7 @@ function sendData(sendingData) {
                   action: 'insert',
                   key: sendingData.key,
                   name: sendingData.name,
-                  course: sendingData.course,
+                  course: sendingData.course_name,
                   grade: sendingData.grade
             },
             dataType: 'json',
@@ -205,8 +207,11 @@ function sendData(sendingData) {
             url: 'http://localhost:8000/data.php',
             success: function(result) {
                   students = result.data;
-                  console.log('sendData: ', students);
+                  console.log('sendData function Line 210: ', students);
                         updateStudentList(students);
+            },
+            error: function(result) {
+                  console.log('sendData function error Line 214: ', result);
             }
       }
       $.ajax(ajaxConfig);
