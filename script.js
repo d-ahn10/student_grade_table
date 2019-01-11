@@ -105,22 +105,22 @@ function renderStudentOnDom(studentObj){
       var studentName = $('<td>').text(studentObj.name);
       var studentCourse = $('<td>').text(studentObj.course_name);
       var studentGrade = $('<td>').text(studentObj.grade);
-      var deleteBtn = $('<button>', {
-            type: 'button',
+      let deleteBtn = $('<button>', {
+            // type: 'button',
             class: 'btn btn-danger',
             text: 'Delete'
       });
-      (function(){
+      // (function(){
             deleteBtn.click(function(){
                   //removes object from student_array
-                  var studentI = student_array.indexOf(studentObj)
+                  let studentI = student_array.indexOf(studentObj)
                   student_array.splice(studentI, 1);
                   
                   //removes from DOM
                   $((this.closest)('tr')).remove();
                   updateStudentList(student_array);
             });
-      })()
+      // })()
 
       var tableRow = $('<tr>');
       $(tableRow).append(studentName, studentCourse, studentGrade, deleteBtn);
