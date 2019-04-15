@@ -147,7 +147,7 @@ function renderStudentOnDom(studentObj){
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(students) {
-      //debugger;
+      debugger;
       //clear the entire table
       $('tbody').empty();
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
@@ -241,13 +241,12 @@ function deleteData(deletingData) {
             dataType: 'json',
             method: 'POST',
             url: 'http://localhost:8000/data.php',
-            success: function(result) {
-                  students = result.data;
-                  console.log('Success deleteData function Line 249: ', students);
-                        updateStudentList(students);
+            success: function() {
+                  console.log('Success deleteData function Line 249: ');
+                        requestData();
             },
             error: function(result) {
-                  console.log('Error deleteData function Line: ', result);
+                  console.log('Error deleteData function Line: ');
             }
       }
       $.ajax(ajaxConfig);
