@@ -30,6 +30,7 @@ student_array = [];
 */
 function initializeApp(){
       addClickHandlersToElements();
+      requestData();
 }
 
 /***************************************************************************************************
@@ -105,24 +106,34 @@ function renderStudentOnDom(studentObj){
       var studentName = $('<td>').text(studentObj.name);
       var studentCourse = $('<td>').text(studentObj.course_name);
       var studentGrade = $('<td>').text(studentObj.grade);
-      let deleteBtn = $('<button>', {
+      var deleteBtn = $('<button>', {
             // type: 'button',
             class: 'btn btn-danger',
             text: 'Delete'
       });
-      // (function(){
+      (function(){
             deleteBtn.click(function(){
                   //removes object from student_array
-                  let studentI = student_array.indexOf(studentObj)
+                  let studentsData = requestData();
+                  console.log('hello: ', studentsData);
+                  let studentI = student_array.indexOf(studentObj);
+                  
+                  // console.log("student_array: ", student_array);
+                  // console.log('line 118 studentI is: ', studentI);
+                  // console.log('line 119 inside render > deleteBtn func studentObj: ', studentObj);
                   student_array.splice(studentI, 1);
+                  // console.log('line 121 inside render > deleteBtn func studentObj: ', studentObj);
+                  // console.log('line 122 studentI is: ', studentI);
                   
                   //removes from DOM
-                  $((this.closest)('tr')).remove();
-                  updateStudentList(student_array);
+                  // console.log('THIS is inside deleteBtn function on line 120: ', event.currentTarget);
+                  $((this.closest)('td')).remove();
+                  // event.currentTarget.remove(parent);
+                  updateStudentList(studentsData);
             });
-      // })()
+      })()
 
-      var tableRow = $('<tr>');
+      var tableRow = $('<tr>').attr('id', studentObj.id);
       $(tableRow).append(studentName, studentCourse, studentGrade, deleteBtn);
       $('tbody').append(tableRow);
 
@@ -140,7 +151,6 @@ function updateStudentList(students) {
       //clear the entire table
       $('tbody').empty();
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
-
             renderStudentOnDom(students[studentArrIndex]);
       }            
       var avgGrade = calculateGradeAverage(students);
@@ -212,6 +222,35 @@ function sendData(sendingData) {
             },
             error: function(result) {
                   console.log('sendData function error Line 214: ', result);
+            }
+      }
+      $.ajax(ajaxConfig);
+}
+
+/***************************************************************************************************
+* sendDeleteData - sends delete info data to sgt database*/
+// function dbDeleteData(str){
+
+function deleteData(deletingData) {
+
+      var ajaxConfig = {
+            data: {
+                  action: 'delete',
+                  key: deletingData.id,
+                  name: deletingData.name,
+                  course: deletingData.course,
+                  grade: deletingData.grade
+            },
+            dataType: 'json',
+            method: 'POST',
+            url: 'http://localhost:8000/data.php',
+            success: function(result) {
+                  students = result.data;
+                  console.log('Success deleteData function Line 249: ', students);
+                        updateStudentList(students);
+            },
+            error: function(result) {
+                  console.log('Error deleteData function Line: ', result);
             }
       }
       $.ajax(ajaxConfig);
