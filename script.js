@@ -207,7 +207,7 @@ function sendData(sendingData) {
       var ajaxConfig = {
             data: {
                   action: 'insert',
-                  key: sendingData.key,
+                  //key: sendingData.key,
                   name: sendingData.name,
                   course: sendingData.course_name,
                   grade: sendingData.grade
@@ -236,10 +236,7 @@ function deleteData(deletingData) {
       var ajaxConfig = {
             data: {
                   action: 'delete',
-                  key: deletingData.id,
-                  name: deletingData.name,
-                  course: deletingData.course,
-                  grade: deletingData.grade
+                  id: deletingData.id,
             },
             dataType: 'json',
             method: 'POST',
