@@ -10,7 +10,7 @@ $(document).ready(initializeApp);
  * Define all global variables here.  
  * 
  */
-student_array = [];
+var student_array = [];
 /***********************
  * student_array - global array to hold student objects
  * @type {Array}
@@ -147,7 +147,7 @@ function renderStudentOnDom(studentObj){
  * @calls renderStudentOnDom, calculateGradeAverage, renderGradeAverage
  */
 function updateStudentList(students) {
-      debugger;
+      // debugger;
       //clear the entire table
       $('tbody').empty();
       for (var studentArrIndex = 0; studentArrIndex < students.length; studentArrIndex++) {
